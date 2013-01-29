@@ -1,4 +1,4 @@
-# TODOQ
+# TODOQ - To Be Released Soon
 
 The simplest command-line TODO list for work, which leads extremely focus.
 
