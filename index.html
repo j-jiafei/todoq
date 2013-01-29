@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="TODOQ : The simplest command-line task manager, which helps extremely focus." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>TODOQ</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/jeffjia/TODOQ">View on GitHub</a>
+
+          <h1 id="project_title">TODOQ</h1>
+          <h2 id="project_tagline">The simplest command-line task manager, which helps extremely focus.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/jeffjia/TODOQ/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/jeffjia/TODOQ/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>TODOQ</h1>
+
+<p>To be released soon.</p>
+
+<p>The simplest command-line TODO list for work, which leads extremely focus.</p>
+
+<p>I like TODO list, and I have used quite a lot of them, but sadly none of them fits me well.
+First, when I look at the long list of tasks to do, I am scared and bored, and I turn to
+procrastinate.</p>
+
+<p>Second, I am a VIM lover, and I use command-line tools for almost all of my programming stuff,
+from my work to my part-time projects. I don't want to open a browser, or some apps to distract me.</p>
+
+<p>Third, I find I wast my time on tasks priority management. When I look at my TODO, I arrange them occasionally
+to make sure the order is according to priority. This is time overhead for TODO list, and I hope I could save
+the time.</p>
+
+<p>These are the reasons why I come up with the idea of TODOQ. It is very simple, but fully functional. You can add
+tasks, check the top task, postpone or delete it. The tasks are ordered by priority, and you can create several queues
+for multiple-task processing.</p>
+
+<p>There is another story about single-task display. There is a theory about programmers that if you want him to make a website
+in two weeks, he intends to procrastinate until there are just two days left, and then finish it in a messy way. If you just
+tell him that to fix a bug this afternoon, he may do it pretty well. The theory may not apply to you, and I believe for most
+ones, single task is enough to keep them focused and working efficiently.</p>
+
+<h2>Install</h2>
+
+<h2>Use</h2>
+
+<h3>add [task name] [priority]</h3>
+
+<p>Add a task into the current queue. If the last including-no-space string is a number, it will be used as priority.
+Priority can be any unsigned int, so you can set any large or crazy number as you want. If no priority is specified, 17
+is set as the default priority.</p>
+
+<p>e.g. add finish the front page UI design 999
+task name - finish the front page UI design
+priority - 999</p>
+
+<p>e.g. add check email
+task name - check email
+priority - 17</p>
+
+<h3>top</h3>
+
+<p>Display the top task. Yes, you are right, just the top one task.</p>
+
+<h3>postpone</h3>
+
+<p>Postpone the top task, and you need to select one from the tasks to advance it to top.</p>
+
+<h3>delete</h3>
+
+<p>Delete the top task. Yes, you can only delete the top one. This is designed on purpose, because we hope to make the
+TODO list management overhead as small as possible.</p>
+
+<h3>peek</h3>
+
+<p>HIGHLY NOT RECOMMENDED
+List all the tasks in the current queue.</p>
+
+<h3>showq</h3>
+
+<p>List all the queues. Single queue is recommended. Multiple queues are designed for those
+who like multiple-thread processing.</p>
+
+<h3>select [queue name]</h3>
+
+<p>Select the queue as the current queue.</p>
+
+<h3>create [queue name]</h3>
+
+<p>Create a new queue.</p>
+
+<h3>help | ?</h3>
+
+<p>Show help. Any weird command will also lead to help.</p>
+
+<h2>License</h2>
+
+<p>Apache license is applied if you want to use the source code.
+<a href="http://www.apache.org/licenses/LICENSE-2.0"> http://www.apache.org/licenses/LICENSE-2.0</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">TODOQ maintained by <a href="https://github.com/jeffjia">jeffjia</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
