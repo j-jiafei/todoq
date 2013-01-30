@@ -1,72 +1,109 @@
-# TODOQ - To Be Released Soon
+# TODOQ
+- To be released soon, and comments are welcome. Twitter: Jeff Jia @JeffreyFJ
 
-The simplest command-line TODO list for work, which leads extremely focus.
+## Introduction
 
-I like TODO list, and I have used quite a lot of them, but sadly none of them fits me well.
-First, when I look at the long list of tasks to do, I am scared and bored, and I turn to
-procrastinate.
+TODOQ is a single-task-display, priority-based, command-line TODO list (I don't know whether someone has come up with such a concept as 
+single-task display).
 
-Second, I am a VIM lover, and I use command-line tools for almost all of my programming stuff,
-from my work to my part-time projects. I don't want to open a browser, or some apps to distract me.
+"Single-task-display" means that usually it only displays the top task, and you can "finish", "drop" or "postpone" it.
 
-Third, I find I wast my time on tasks priority management. When I look at my TODO, I arrange them occasionally
-to make sure the order is according to priority. This is time overhead for TODO list, and I hope I could save
-the time.
+"Priority-based" means the order of tasks is totally based on priority, which is an unsigned int (whichever python int type supports).
 
-These are the reasons why I come up with the idea of TODOQ. It is very simple, but fully functional. You can add
-tasks, check the top task, postpone or delete it. The tasks are ordered by priority, and you can create several queues
-for multiple-task processing.
+"Command-line" means it is run by linux / unix (mac included) terminal.
 
-There is another story about single-task display. There is a theory about programmers that if you want him to make a website
-in two weeks, he intends to procrastinate until there are just two days left, and then finish it in a messy way. If you just
-tell him that to fix a bug this afternoon, he may do it pretty well. The theory may not apply to you, and I believe for most
-ones, single task is enough to keep them focused and working efficiently.
+TODOQ also supports multiple queues, in case you want to work in multiple threads at the same time in a period.
+
+We also support the sync of tasks, and dropbox account is required if you want to use the feature.
+ 
+## The story behind the design of TODOQ
+
+We hope to design the world's simplest command-line TODO list, and we have two basic goals for it:
+1. The TODO list should help users focus on work.
+2. The task management overhead should be minimized.
+
+Personally I am a TODO list enthusiast. Starting from paper and pencil when I was in high school, I have been trying to use
+TODO list to help me schedule my life. I explored and used different methods and tools to help me track the status of
+daily tasks. Some of the tools are pretty cool, and I actually used them for quite while. But from my experience, I found that I
+never kept using a single tool for more than two weeks. At first, I might be attracted to a tool and make up my mind for a resolution
+to make my life well-planed. But soon I found that the tool does not actually help me much on focus and getting things done, but the
+overhead to manage the TODO list itself is pretty high.
+
+Now as a research assistant, a side-project developer and a student at the same time. I use command-line tools quite a lot every day.
+Sometimes I use web-based TODO list to help me track problems to solve, features to implement, or bugs to fix. But switching between
+command line and browser can be a pain sometimes, and looks less professional. Such a switching could also be distracting sometimes.
+
+Then my friends and I decide to write a TODO list tool for developers like us, basically command-line everything guys =). We hope it 
+could be really light-wight, "prevent" over-managing task list, and help focus on work. So we come up with the idea of single-task
+display TODO list. Instead of displaying all the tasks, we simply show the top one, the one with the highest priority. Operations,
+like "finish", "drop", "postpone", are only limited to the top one to minimize the TODO list management overhead. Tasks can still be
+listed with the command "peek", which is highly not recommended. We hope users could just focus on the top task at the moment, and thinking
+about other tasks only when absolutely necessary.
+
+You may find such a design may be inconvenient sometimes. You may want to arrange the order of tasks, set a deadline for it, or simply drop
+some of them. These operations are almost unsupported in TODOQ. Instead, for the order, we use priority (basically any unsigned int number between
+0 and whatever python int type supports). The tasks are ordered based on priority completely. We don't use deadline for tasks. We believe that
+human mind should be able to transform urgency to priority easily, and for work, a good way to meet a deadline is to do it as early as possible.
+You may want to drop some of tasks since you have finished them, or they are not necessary any more, but why not do it later, cause managing TODO
+list itself could also be "viewed" as a task with not-the-highest priority.
+
+We hope you could enjoy using TODOQ, and make it help you improve your valuable productivity.
 
 ## Install
 
+This part will be added later.
 
-## Use
-### add [task name] [priority]
+## Usage
+
+### taskq -add [task name] ([priority])
 
 Add a task into the current queue. If the last including-no-space string is a number, it will be used as priority.
 Priority can be any unsigned int, so you can set any large or crazy number as you want. If no priority is specified, 17
 is set as the default priority.
 
-e.g. add finish the front page UI design 999
+e.g. 
+taskq -a "finish the front page UI design" 999
 task name - finish the front page UI design
 priority - 999
 
-e.g. add check email
+e.g. 
+taskq -a "check email"
 task name - check email
-priority - 17
+priority - 17 (17 is set as the default priority.)
 
 
-### top
+### taskq -top
 Display the top task. Yes, you are right, just the top one task.
 
-### postpone
-Postpone the top task, and you need to select one from the tasks to advance it to top.
+### taskq -finish
+Mark the top task as "finished".
 
-### delete
-Delete the top task. Yes, you can only delete the top one. This is designed on purpose, because we hope to make the
-TODO list management overhead as small as possible.
+### taskq -postpone ([Task ID])
+Postpone the top task.
 
-### peek
-HIGHLY NOT RECOMMENDED
-List all the tasks in the current queue.
+If the [Task ID] is given, that one is advanced before the top task. Otherwise, the second one is advanced to top.
 
-### showq
+### taskq -drop
+Mark the top task as "dropped".
+
+### taskq -peek
+List all the tasks in the current queue. HIGHLY NOT RECOMMENDED.
+
+### taskq -showq
 List all the queues. Single queue is recommended. Multiple queues are designed for those
 who like multiple-thread processing.
 
-### select [queue name]
+### taskq -selectq [queue name]
 Select the queue as the current queue.
 
-### create [queue name]
+### taskq -createq [queue name]
 Create a new queue.
 
-### help | ?
-Show help. Any weird command will also lead to help.
+### taskq -help
+Show help. Any weird commands will also lead to help.
+
+### taskq -sync
+Sync to dropbox. (Dropbox account required.)
 
 ## License
 Apache license is applied if you want to use the source code.
