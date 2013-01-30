@@ -1,5 +1,6 @@
 # TODOQ
-- To be released soon, and comments are welcome. Twitter: Jeff Jia @JeffreyFJ
+
+To be released soon, and comments are welcome. Twitter: Jeff Jia @JeffreyFJ
 
 ## Introduction
 
@@ -22,7 +23,7 @@ This part will be added later.
 
 ## Usage
 
-### taskq -add [task name] ([priority])
+### taskq -add [task name] \([priority]\)
 
 Add a task into the current queue. If the last including-no-space string is a number, it will be used as priority.
 Priority can be any unsigned int, so you can set any large or crazy number as you want. If no priority is specified, 17
@@ -45,7 +46,7 @@ Display the top task. Yes, you are right, just the top one task.
 ### taskq -finish
 Mark the top task as "finished".
 
-### taskq -postpone ([Task ID])
+### taskq -postpone ([task ID])
 Postpone the top task.
 
 If the [Task ID] is given, that one is advanced before the top task. Otherwise, the second one is advanced to top.
