@@ -74,37 +74,37 @@ task name - check email
 priority - 17 (17 is set as the default priority.)
 
 
-### taskq -top
+### taskq --top, taskq -a
 Display the top task. Yes, you are right, just the top one task.
 
-### taskq -finish
+### taskq --finish, taskq -f
 Mark the top task as "finished".
 
-### taskq -postpone ([task ID])
+### taskq --postpone ([task ID]), taskq -p ([task ID])
 Postpone the top task.
 
 If the [Task ID] is given, that one is advanced before the top task. Otherwise, the second one is advanced to top.
 
-### taskq -drop
+### taskq --drop, taskq -d
 Mark the top task as "dropped".
 
-### taskq -peek
+### taskq --list
 List all the tasks in the current queue. HIGHLY NOT RECOMMENDED.
 
-### taskq -showq
+### taskq --showq, taskq -q
 List all the queues. Single queue is recommended. Multiple queues are designed for those
 who like multiple-thread processing.
 
-### taskq -selectq [queue name]
+### taskq --selectq [queue name]
 Select the queue as the current queue.
 
-### taskq -createq [queue name]
+### taskq --createq [queue name]
 Create a new queue.
 
-### taskq -help
+### taskq --help
 Show help. Any weird commands will also lead to help.
 
-### taskq -sync
+### taskq --sync
 Sync to dropbox. (Dropbox account required.)
 
 
