@@ -89,62 +89,62 @@ list itself could also be "viewed" as a task with not-the-highest priority.</p>
 
 <h2>Usage</h2>
 
-<h3>taskq -add [task name] ([priority])</h3>
+<h3>taskq add task_name [priority]</h3>
 
 <p>Add a task into the current queue. If the last including-no-space string is a number, it will be used as priority.
 Priority can be any unsigned int, so you can set any large or crazy number as you want. If no priority is specified, 17
 is set as the default priority.</p>
 
 <p>e.g. 
-taskq -a "finish the front page UI design" 999
+taskq add "finish the front page UI design" 999
 task name - finish the front page UI design
 priority - 999</p>
 
 <p>e.g. 
-taskq -a "check email"
+taskq add "check email"
 task name - check email
 priority - 17 (17 is set as the default priority.)</p>
 
-<h3>taskq --top, taskq -a</h3>
+<h3>taskq top</h3>
 
 <p>Display the top task. Yes, you are right, just the top one task.</p>
 
-<h3>taskq --finish, taskq -f</h3>
+<h3>taskq finish</h3>
 
 <p>Mark the top task as "finished".</p>
 
-<h3>taskq --postpone ([task ID]), taskq -p ([task ID])</h3>
+<h3>taskq postpone [task_ID]</h3>
 
 <p>Postpone the top task.</p>
 
 <p>If the [Task ID] is given, that one is advanced before the top task. Otherwise, the second one is advanced to top.</p>
 
-<h3>taskq --drop, taskq -d</h3>
+<h3>taskq drop</h3>
 
 <p>Mark the top task as "dropped".</p>
 
-<h3>taskq --list</h3>
+<h3>taskq list</h3>
 
 <p>List all the tasks in the current queue. HIGHLY NOT RECOMMENDED.</p>
 
-<h3>taskq --showq, taskq -q</h3>
+<h3>taskq showq</h3>
 
 <p>List all the queues. Single queue is recommended. Multiple queues are designed for those
 who like multiple-thread processing.</p>
 
-<h3>taskq --selectq [queue name]</h3>
+<h3>taskq selectq queue_id</h3>
 
 <p>Select the queue as the current queue.</p>
 
-<h3>taskq --createq [queue name]</h3>
+<h3>taskq createq queue_name</h3>
 
 <p>Create a new queue.</p>
 
-<h3>taskq --help</h3>
+<h3>taskq --help, taskq -h, taskq help</h3>
 
 <p>Show help. Any weird commands will also lead to help.</p>
 
-<h3>taskq --sync</h3>
+<h3>taskq sync</h3>
 
 <p>Sync to dropbox. (Dropbox account required.)</p>
 
