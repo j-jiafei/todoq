@@ -1,61 +1,131 @@
 #! /usr/bin/env python
 
-import optparse
+import sys
+import argparse
 
-def main():
-  """ Runs program and handles command line options"""
-  p = optparse.OptionParser(usage = 'Usage: %prog command [params]',
-                            description = 'Simplest command-line todo list',
-                            version = '%prog 1.0')
+class CommandLineApplication:
+  """ The command line application class to deal with sub-command dispatching """
+  def __init__(self, sub_command_list):
+    """ sub_command_list is the list from sub-command to handler class """
+    self.sub_command_list = sub_command_list
 
-  (args, opts) = p.parse_args()
+  def run(self):
+    """ The function to be called to run the whole program """
+    parser = argparse.ArgumentParser(prog='todoq')
+    subparsers = parser.add_subparsers(help='sub-command help')
+
+    for element in self.sub_command_list:
+      handler = element[1]()
+      parser_add = subparsers.add_parser(element[0], help=handler.get_help_str())
+      handler.add_arguments(parser_add)
+      parser_add.set_defaults(func=handler.execute)
+
+    args = parser.parse_args()
+    args.func(args)
+
+    return
+
+class SubCommandHandler:
+  """ The base class for all the sub-command handlers """
+  def get_help_str(self):
+    """ Returns default help str """
+    return 'sub-command'
   
+  def add_arguments(self, subparser):
+    """ Add no arguments for default """
+    return
 
-#  p.add_option('--add', '-a',
-#               action='store_true',
-#               default=False,
-#               help='add a new task')
-#  p.add_option('--top', '-t',
-#               action='store_true',
-#               default=False,
-#               help='show the top task')
-#  p.add_option('--finish', '-f',
-#               action='store_true',
-#               default=False,
-#               help='mark the top task as finished and archive it')
-#  p.add_option('--postpone', '-p',
-#               action='store_true',
-#               default=False,
-#               help='postpone the top task, and advance the second task')
-#  p.add_option('--drop', '-d',
-#               action='store_true',
-#               default=False,
-#               help='mark the top task as dropped and archive it')
-#  p.add_option('--list', '',
-#               action='store_true',
-#               default=False,
-#               help='list all the tasks in the current task queue')
-#  p.add_option('--showq', '',
-#               action='store_true',
-#               default=False,
-#               help='list all the queues')
-#  p.add_option('--selectq', '',
-#               action='store_true',
-#               default=False,
-#               help='select the queue with the ID as the current queue')
-#  p.add_option('--createq', '',
-#               action='store_true',
-#               default=False,
-#               help='create a new queue')
-#  p.add_option('--sync', '',
-#               action='store_true',
-#               default=False,
-#               help='sync all the queue with Dropbox')
+  def execute(self, args):
+    """ The default function to be called when sub-command is executed """
+    return
 
+class SubCommandAddHandler(SubCommandHandler):
+  """ The handler to deal with sub-command 'add' """
+  def get_help_str(self):
+    """ Returns the help str for sub-command 'add' """
+    return 'add a new task'
 
-  
-  
+  def add_arguments(self, subparser):
+    """ Add optional and positional arguments to subparser """
+    subparser.add_argument('task_name', nargs=1)
+    subparser.add_argument('priority', type=int, nargs='?')
+    return
 
+  def execute(self, args):
+    """ The function to be called when sub-command 'add' is executed """
+    print 'add is executed'
+    return
+
+class SubCommandTopHandler(SubCommandHandler):
+  """ The handler to deal with sub-command 'top' """
+  def get_help_str(self):
+    """ Returns the help str for sub-command 'top' """
+    return 'show the top task'
+
+  def execute(self, args):
+    """ The function to be called when sub-command 'top' is executed """
+    print 'top is executed'
+    return
+
+class SubCommandFinishHandler(SubCommandHandler):
+  """ The handler to deal with 'finish' """
+  def get_help_str(self):
+    """ Returns the help str for 'finish' """
+    return 'mark the top task as finished and archive it'
+
+class SubCommandPostponeHandler(SubCommandHandler):
+  """ The handler to deal with 'postpone' """
+  def get_help_str(self):
+    """ Returns the help str for 'postpone' """
+    return 'postpone the top task, and advance the second task'
+
+class SubCommandDropHandler(SubCommandHandler):
+  """ The handler to deal with 'drop' """
+  def get_help_str(self):
+    """ Returns the help str for 'drop' """
+    return 'mark the top task as dropped and archive it'
+
+class SubCommandListHandler(SubCommandHandler):
+  """ The handler to deal with 'list' """
+  def get_help_str(self):
+    """ Returns the help str for 'list' """
+    return 'list all the tasks in the current task queue'
+
+class SubCommandShowqHandler(SubCommandHandler):
+  """ The handler to deal with 'showq' """
+  def get_help_str(self):
+    """ Returns the help str for 'showq' """
+    return 'list all the queues'
+
+class SubCommandSelectqHandler(SubCommandHandler):
+  """ The handler to deal with 'selectq' """
+  def get_help_str(self):
+    """ Returns the help str for 'selectq' """
+    return 'select the queue as the current queue'
+
+class SubCommandCreateqHandler(SubCommandHandler):
+  """ The handler to deal with 'createq' """
+  def get_help_str(self):
+    """ Returns the help str for 'createq' """
+    return 'create a new queue'
+
+class SubCommandSyncHandler(SubCommandHandler):
+  """ The handler to deal with 'sync' """
+  def get_help_str(self):
+    """ Returns the help str for 'sync' """
+    return 'sync all the task queues with Dropbox'
 
 if __name__ == '__main__':
-  main()
+  app = CommandLineApplication([
+      ('add', SubCommandAddHandler),
+      ('top', SubCommandTopHandler),
+      ('postpone', SubCommandPostponeHandler),
+      ('finish', SubCommandFinishHandler),
+      ('drop', SubCommandDropHandler),
+      ('list', SubCommandListHandler),
+      ('showq', SubCommandShowqHandler),
+      ('selectq', SubCommandSelectqHandler),
+      ('createq', SubCommandCreateqHandler),
+      ('sync', SubCommandSyncHandler),
+    ]);
+  app.run()
