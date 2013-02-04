@@ -1,5 +1,11 @@
-TODOQ
 ===============
+ TODOQ
+===============
+
+---------------------------------------
+ The Simplest Command-line TODO List
+---------------------------------------
+
 
 To be released soon, and comments are welcome. Twitter: Jeff Jia @JeffreyFJ
 
