@@ -2,6 +2,10 @@
 
 import sys
 import argparse
+import os
+from file_access_helper import FileAccessHelper
+
+helper = FileAccessHelper(os.path.join(os.path.expanduser('~'), '.todoq'))
 
 class CommandLineApplication:
   """ The command line application class to deal with sub-command dispatching """
@@ -48,12 +52,12 @@ class SubCommandAddHandler(SubCommandHandler):
   def add_arguments(self, subparser):
     """ Add optional and positional arguments to subparser """
     subparser.add_argument('task_name', nargs=1)
-    subparser.add_argument('priority', type=int, nargs='?')
+    subparser.add_argument('priority', type=int, nargs='?', default=17)
     return
 
   def execute(self, args):
     """ The function to be called when sub-command 'add' is executed """
-    print 'add is executed'
+    helper.add_task(args.task_name[0], args.priority)
     return
 
 class SubCommandTopHandler(SubCommandHandler):
