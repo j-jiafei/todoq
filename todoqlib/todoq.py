@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 
 import sys
 import argparse
@@ -115,7 +115,7 @@ class SubCommandSyncHandler(SubCommandHandler):
     """ Returns the help str for 'sync' """
     return 'sync all the task queues with Dropbox'
 
-if __name__ == '__main__':
+def main():
   app = CommandLineApplication([
       ('add', SubCommandAddHandler),
       ('top', SubCommandTopHandler),
@@ -129,3 +129,6 @@ if __name__ == '__main__':
       ('sync', SubCommandSyncHandler),
     ]);
   app.run()
+
+if __name__ == '__main__':
+  main()
