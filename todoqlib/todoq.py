@@ -9,9 +9,10 @@ helper = FileAccessHelper(os.path.join(os.path.expanduser('~'), '.todoq'))
 
 class CommandLineApplication:
   """ The command line application class to deal with sub-command dispatching """
-  def __init__(self, sub_command_list):
+  def __init__(self, sub_command_list, debug = False):
     """ sub_command_list is the list from sub-command to handler class """
     self.sub_command_list = sub_command_list
+    helper.set_debug(debug)
 
   def run(self):
     """ The function to be called to run the whole program """
@@ -43,6 +44,10 @@ class SubCommandHandler:
     """ The default function to be called when sub-command is executed """
     return
 
+  def print_no_task_error(self):
+    print 'There is no task in the queue.'
+    return
+
 class SubCommandAddHandler(SubCommandHandler):
   """ The handler to deal with sub-command 'add' """
   def get_help_str(self):
@@ -68,7 +73,11 @@ class SubCommandTopHandler(SubCommandHandler):
 
   def execute(self, args):
     """ The function to be called when sub-command 'top' is executed """
-    print 'top is executed'
+    try:
+      task_name, priority = helper.get_top_task()
+      print '{0}\t\t{1}'.format(task_name, priority)
+    except IndexError:
+      self.print_no_task_error()
     return
 
 class SubCommandFinishHandler(SubCommandHandler):
@@ -77,17 +86,35 @@ class SubCommandFinishHandler(SubCommandHandler):
     """ Returns the help str for 'finish' """
     return 'mark the top task as finished and archive it'
 
+  def execute(self, args):
+    try:
+      helper.mark_top_task_as_finished()
+    except IndexError:
+      self.print_no_task_error()
+    return
+
+
 class SubCommandPostponeHandler(SubCommandHandler):
   """ The handler to deal with 'postpone' """
   def get_help_str(self):
     """ Returns the help str for 'postpone' """
     return 'postpone the top task, and advance the second task'
 
+  def execute(self, args):
+    return
+
 class SubCommandDropHandler(SubCommandHandler):
   """ The handler to deal with 'drop' """
   def get_help_str(self):
     """ Returns the help str for 'drop' """
     return 'mark the top task as dropped and archive it'
+
+  def execute(self, args):
+    try:
+      helper.mark_top_task_as_dropped()
+    except IndexError:
+      self.print_no_task_error()
+    return
 
 class SubCommandListHandler(SubCommandHandler):
   """ The handler to deal with 'list' """
@@ -131,7 +158,7 @@ def main():
       ('selectq', SubCommandSelectqHandler),
       ('createq', SubCommandCreateqHandler),
       ('sync', SubCommandSyncHandler),
-    ]);
+    ], debug=True);
   app.run()
 
 if __name__ == '__main__':
