@@ -63,7 +63,12 @@ We hope you could enjoy using TODOQ, and make it help you improve your valuable 
 Install
 ===============
 
-This part will be added later.
+First-time install:
+pip install todoq
+
+For update:
+pip install todoq -U
+
 
 Usage
 ===============
