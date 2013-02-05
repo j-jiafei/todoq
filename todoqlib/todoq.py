@@ -4,6 +4,7 @@ import sys
 import argparse
 import os
 from file_access_helper import FileAccessHelper
+from task import Task
 
 helper = FileAccessHelper(os.path.join(os.path.expanduser('~'), '.todoq'))
 
@@ -18,17 +19,15 @@ class CommandLineApplication:
     """ The function to be called to run the whole program """
     parser = argparse.ArgumentParser(prog='todoq')
     subparsers = parser.add_subparsers(help='sub-command help')
-
     for element in self.sub_command_list:
       handler = element[1]()
       parser_add = subparsers.add_parser(element[0], help=handler.get_help_str())
       handler.add_arguments(parser_add)
       parser_add.set_defaults(func=handler.execute)
-
     args = parser.parse_args()
     args.func(args)
-
     return
+
 
 class SubCommandHandler:
   """ The base class for all the sub-command handlers """
@@ -50,6 +49,7 @@ class SubCommandHandler:
 
 class SubCommandAddHandler(SubCommandHandler):
   """ The handler to deal with sub-command 'add' """
+
   def get_help_str(self):
     """ Returns the help str for sub-command 'add' """
     return 'add a new task'
@@ -57,13 +57,14 @@ class SubCommandAddHandler(SubCommandHandler):
   def add_arguments(self, subparser):
     """ Add optional and positional arguments to subparser """
     subparser.add_argument('task_name', nargs=1)
-    subparser.add_argument('priority', type=int, nargs='?', default=17)
+    subparser.add_argument('priority', type=int, nargs=1)
     return
 
   def execute(self, args):
     """ The function to be called when sub-command 'add' is executed """
     helper.add_task(args.task_name[0], args.priority)
     return
+
 
 class SubCommandTopHandler(SubCommandHandler):
   """ The handler to deal with sub-command 'top' """
@@ -79,6 +80,7 @@ class SubCommandTopHandler(SubCommandHandler):
     except IndexError:
       self.print_no_task_error()
     return
+
 
 class SubCommandFinishHandler(SubCommandHandler):
   """ The handler to deal with 'finish' """
@@ -100,8 +102,19 @@ class SubCommandPostponeHandler(SubCommandHandler):
     """ Returns the help str for 'postpone' """
     return 'postpone the top task, and advance the second task'
 
-  def execute(self, args):
+  def add_arguments(self, subparser):
+    """ Add the priority argument for 'postpone """
+    subparser.add_argument('priority', type=int, nargs=1)
     return
+
+  def execute(self, args):
+    """ Change the priority value of the top task """
+    try:
+      helper.postpone_top_task(args.priority)
+    except IndexError:
+      self.print_no_task_error()
+    return
+
 
 class SubCommandDropHandler(SubCommandHandler):
   """ The handler to deal with 'drop' """
@@ -116,11 +129,42 @@ class SubCommandDropHandler(SubCommandHandler):
       self.print_no_task_error()
     return
 
+
 class SubCommandListHandler(SubCommandHandler):
   """ The handler to deal with 'list' """
+
   def get_help_str(self):
     """ Returns the help str for 'list' """
     return 'list all the tasks in the current task queue'
+
+  def add_arguments(self, subparser):
+    """ Add the priority argument for 'postpone """
+    subparser.add_argument('-u', '--unfinished', 
+                           help='display all the unfinished tasks',
+                           action='store_true')
+    subparser.add_argument('-a', '--all', 
+                           help='display all the tasks',
+                           action='store_true')
+    subparser.add_argument('-f', '--finished', 
+                           help='display all the finished tasks',
+                           action='store_true')
+    subparser.add_argument('-d', '--dropped', 
+                           help='display all the dropped tasks',
+                           action='store_true')
+    subparser.add_argument('-n', '--count', 
+                           help='specify the number of tasks to be displayed',
+                           type=int)
+    return
+
+  def execute(self, args):
+    tasks = helper.get_tasks((args.all, args.unfinished, args.finished,
+                              args.dropped), args.count)
+    if not tasks:
+      self.print_no_task_error()
+    for task in tasks:
+      print task.to_str()
+    return
+
 
 class SubCommandShowqHandler(SubCommandHandler):
   """ The handler to deal with 'showq' """

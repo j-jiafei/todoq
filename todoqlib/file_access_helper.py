@@ -2,6 +2,7 @@ import os
 from xml.dom.minidom import parse, Document, getDOMImplementation
 import time
 import heapq
+from task import Task
 
 time_format_str = '%a, %d %b %Y %H:%M:%S'
 
@@ -119,3 +120,26 @@ class FileAccessHelper:
     self.change_top_task_to_tag('Dropped')
     self.save_file()
     return
+
+  def postpone_top_task(self, priority):
+    top_node = self.get_top_node()
+    top_node.getElementsByTagName('Priority').childNodes[0].replaceWholeText(str(priority))
+    return
+
+  def get_tasks(self, filter_tuple, count):
+    """ filter_tuple = (all, unfinished, finished, dropped) """
+    queue_node = self.get_queue_node()
+    task_nodes = []
+    if filter_tuple[0] or filter_tuple[1] \
+      or not filter_tuple[2] and not filter_tuple[3]:
+      task_nodes = task_nodes + queue_node.getElementsByTagName('Unfinished')
+    if filter_tuple[0] or filter_tuple[2]:
+      task_nodes = task_nodes + queue_node.getElementsByTagName('Finished')
+    if filter_tuple[0] or filter_tuple[3]:
+      task_nodes = task_nodes + queue_node.getElementsByTagName('Dropped')
+    heap = self.get_task_heap(task_nodes)
+    tasks = []
+    for element in reversed(heap):
+      task_node = element[1]
+      tasks.append(Task.parse_task(task_node))
+    return tasks

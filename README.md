@@ -68,12 +68,12 @@ This part will be added later.
 Usage
 ===============
 
-taskq add task\_name [priority]
+taskq add task\_name priority
 ---------------
 
 Add a task into the current queue. If the last including-no-space string is a number, it will be used as priority.
-Priority can be any unsigned int, so you can set any large or crazy number as you want. If no priority is specified, 17
-is set as the default priority.
+Priority can be any unsigned int, so you can set any large or crazy number as you want. A priority is forced to given,
+and should be different from that of any other task.
 
 e.g. 
 taskq add "finish the front page UI design" 999
@@ -81,9 +81,9 @@ task name - finish the front page UI design
 priority - 999
 
 e.g. 
-taskq add "check email"
+taskq add "check email" 10
 task name - check email
-priority - 17 (17 is set as the default priority.)
+priority - 10
 
 
 taskq top
@@ -94,11 +94,9 @@ taskq finish
 ---------------
 Mark the top task as "finished".
 
-taskq postpone [task\_ID]
+taskq postpone priority
 ---------------
 Postpone the top task.
-
-If the [Task ID] is given, that one is advanced before the top task. Otherwise, the second one is advanced to top.
 
 taskq drop
 ---------------
@@ -107,6 +105,14 @@ Mark the top task as "dropped".
 taskq list
 ---------------
 List all the tasks in the current queue. HIGHLY NOT RECOMMENDED.
+
+Options
+~~~~~~~~~~~~~~~
+* \-u: list all the unfinished tasks
+* \-a: list all the tasks
+* \-f: list all the finished tasks
+* \-d: list all the dropped tasks
+* \-n [count]: specifiy the number of tasks to be displayed
 
 taskq showq
 ---------------
