@@ -2,8 +2,6 @@
 """
 import time
 
-from xml.dom.minidom import Document
-
 TIME_FORMAT_STR = '%a, %d %b %Y %H:%M:%S'
 
 class Task:

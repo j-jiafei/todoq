@@ -5,6 +5,7 @@ import argparse
 import os
 from file_access_helper import FileAccessHelper
 from task import Task
+from queue import QueueNotFoundError
 
 helper = FileAccessHelper(os.path.join(os.path.expanduser('~'), '.todoq'))
 
@@ -45,6 +46,10 @@ class SubCommandHandler:
 
   def print_no_task_error(self):
     print 'There is no task in the queue.'
+    return
+
+  def print_no_queue_error(self):
+    print 'There is no queue now.'
     return
 
 class SubCommandAddHandler(SubCommandHandler):
@@ -172,17 +177,57 @@ class SubCommandShowqHandler(SubCommandHandler):
     """ Returns the help str for 'showq' """
     return 'list all the queues'
 
+  def add_arguments(self, subparser):
+    subparser.add_argument('-a', '--active',
+                           help='display the current active queue',
+                           action='store_true')
+    subparser.add_argument('-i', '--inactive',
+                           help='display all the inactive queues',
+                           action='store_true')
+    return
+
+  def execute(self, args):
+    queues = helper.get_queues((args.active, args.inactive))
+    if not queues:
+      self.print_no_queue_error()
+    for queue in queues:
+      print queue.to_str()
+    return
+
 class SubCommandSelectqHandler(SubCommandHandler):
   """ The handler to deal with 'selectq' """
   def get_help_str(self):
     """ Returns the help str for 'selectq' """
     return 'select the queue as the current queue'
 
+  def add_arguments(self, subparser):
+    subparser.add_argument('queue_name', nargs = 1,
+                           help='the name of queue to be selected')
+    return
+
+  def execute(self, args):
+    try:
+      helper.select_queue(args.queue_name[0])
+      print 'Select "{0}" as the current active queue'.format(args.queue_name[0])
+    except QueueNotFoundError as detail:
+      print detail
+    return
+
 class SubCommandCreateqHandler(SubCommandHandler):
   """ The handler to deal with 'createq' """
   def get_help_str(self):
     """ Returns the help str for 'createq' """
     return 'create a new queue'
+
+  def add_arguments(self, subparser):
+    subparser.add_argument('queue_name', nargs = 1,
+                           help='the name of queue to be selected')
+    return
+
+  def execute(self, args):
+    helper.create_queue(args.queue_name[0])
+    print 'Create a new queue "{0}"'.format(args.queue_name[0])
+    return
 
 class SubCommandSyncHandler(SubCommandHandler):
   """ The handler to deal with 'sync' """
