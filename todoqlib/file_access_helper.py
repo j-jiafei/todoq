@@ -122,8 +122,12 @@ class FileAccessHelper:
     return
 
   def postpone_top_task(self, priority):
+    dom = self.get_queue_dom()
     top_node = self.get_top_node()
-    top_node.getElementsByTagName('Priority').childNodes[0].replaceWholeText(str(priority))
+    if self.debug:
+      print 'Reset top task with the priority of {0}'.format(priority)
+    top_node.getElementsByTagName('Priority')[0].firstChild.data = str(priority)
+    self.save_file()
     return
 
   def get_tasks(self, filter_tuple, count):

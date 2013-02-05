@@ -62,7 +62,7 @@ class SubCommandAddHandler(SubCommandHandler):
 
   def execute(self, args):
     """ The function to be called when sub-command 'add' is executed """
-    helper.add_task(args.task_name[0], args.priority)
+    helper.add_task(args.task_name[0], args.priority[0])
     return
 
 
@@ -110,7 +110,7 @@ class SubCommandPostponeHandler(SubCommandHandler):
   def execute(self, args):
     """ Change the priority value of the top task """
     try:
-      helper.postpone_top_task(args.priority)
+      helper.postpone_top_task(args.priority[0])
     except IndexError:
       self.print_no_task_error()
     return
