@@ -75,8 +75,8 @@ class SubCommandTopHandler(SubCommandHandler):
   def execute(self, args):
     """ The function to be called when sub-command 'top' is executed """
     try:
-      task_name, priority = helper.get_top_task()
-      print '{0}\t\t{1}'.format(task_name, priority)
+      task = helper.get_top_task()
+      print task.to_str()
     except IndexError:
       self.print_no_task_error()
     return

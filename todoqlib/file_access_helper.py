@@ -4,7 +4,6 @@ import time
 import heapq
 from task import Task
 
-time_format_str = '%a, %d %b %Y %H:%M:%S'
 
 class FileAccessHelper:
   """ The helper class for data file saving, modifying and sync """
@@ -68,21 +67,17 @@ class FileAccessHelper:
           task_name, priority, self.get_queue_name())
     queue_dom = self.get_queue_dom()
     queue_node = self.get_queue_node()
-    task_node = queue_node.appendChild(queue_dom.createElement('Unfinished'))
-    name_node = task_node.appendChild(queue_dom.createElement('Name'))
-    name_node.appendChild(queue_dom.createTextNode(task_name))
-    priority_node = task_node.appendChild(queue_dom.createElement('Priority'))
-    priority_node.appendChild(queue_dom.createTextNode(str(priority)))
-    create_time_node = task_node.appendChild(queue_dom.createElement('CreateTime'))
-    create_time_node.appendChild(queue_dom.createTextNode(time.strftime(time_format_str, time.localtime())))
+    task = Task(task_name, priority, 'Unfinished')
+    queue_node.appendChild(task.to_xml_node(queue_dom))
     self.save_file()
     return
 
-  def get_task_heap(self, tasks):
+  def get_task_heap(self, task_nodes):
+    """ The key is the negation of priority """
     heap = []
-    for task_node in tasks:
-      priority = int(task_node.getElementsByTagName('Priority')[0].childNodes[0].data)
-      heapq.heappush(heap, (priority, task_node))
+    for task_node in task_nodes:
+      key = -int(task_node.getElementsByTagName('Priority')[0].firstChild.data)
+      heapq.heappush(heap, (key, task_node))
     return heap
 
   def get_node_data(self, node, tag):
@@ -92,13 +87,13 @@ class FileAccessHelper:
     queue_dom = self.get_queue_dom()
     unfinished_tasks = queue_dom.getElementsByTagName('Unfinished')
     heap = self.get_task_heap(unfinished_tasks)
-    top_node = heap[-1][1]
+    top_node = heap[0][1]
     return top_node
 
   def get_top_task(self):
     """ Return the the top task """
     top_node = self.get_top_node()
-    return (self.get_node_data(top_node, 'Name'), int(self.get_node_data(top_node, 'Priority')))
+    return Task.parse_task(top_node)
   
   def change_top_task_to_tag(self, tag):
     queue_dom = self.get_queue_dom()
