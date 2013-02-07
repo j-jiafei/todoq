@@ -112,7 +112,7 @@ todoq list
 List all the tasks in the current queue. HIGHLY NOT RECOMMENDED.
 
 Options
-~~~~~~~~~~~~~~~
+
 * \-u: list all the unfinished tasks
 * \-a: list all the tasks
 * \-f: list all the finished tasks
