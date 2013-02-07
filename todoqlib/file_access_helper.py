@@ -5,14 +5,13 @@ import heapq
 from task import Task
 from queue import Queue
 from queue import QueueNotFoundError
+from sets import Set
 
 
 class FileAccessHelper:
   """ The helper class for data file saving, modifying and sync """
   def __init__(self, todoq_dir, debug = False):
     self.todoq_dir = todoq_dir
-    if not os.path.exists(todoq_dir):
-      os.makedirs(todoq_dir)
     self.queue_info_path = os.path.join(todoq_dir, 'queue.info')
     self.queue_info_dom = None
     self.debug = debug
@@ -20,6 +19,31 @@ class FileAccessHelper:
     self.queue_path = None
     self.queue_dom = None
     self.queue_node = None
+    self.init_check(debug)
+
+  def init_check(self, debug):
+    """ Initialization check """
+# existance of todoq_dir
+    if not os.path.exists(self.todoq_dir):
+      os.makedirs(todoq_dir)
+# existance of queue_info_path
+    queue_info_dom = self.get_queue_info_dom()
+# default task check
+    queue_name_set = Set()
+    for node in queue_info_dom.documentElement.getElementsByTagName('Name'):
+      queue_name_set.add(node.firstChild.data)
+    if not 'default' in queue_name_set:
+      self.create_queue('default')
+    for file_name in os.listdir(self.todoq_dir):
+      if file_name == 'queue.info':
+        continue
+      queue_name = os.path.splitext(file_name)[0]
+      if not queue_name == 'default' and not queue_name in queue_name_set:
+        self.create_queue(queue_name)
+# active task check
+    if not queue_info_dom.documentElement.getElementsByTagName('Active'):
+      self.select_queue('default')
+    return
   
   def set_debug(self, debug):
     self.debug = debug
@@ -31,12 +55,8 @@ class FileAccessHelper:
       return self.queue_name
     dom = self.get_queue_info_dom()
     active_task_node = dom.getElementsByTagName('Active')
-    if active_task_node:
-      self.queue_name = active_task_node[0].getElementsByTagName(
-          'Name')[0].firstChild.data
-    else:
-      self.queue_name = 'default'
-      self.select_queue('default')
+    self.queue_name = active_task_node[0].getElementsByTagName(
+        'Name')[0].firstChild.data
     return self.queue_name
 
   def get_queue_path(self, queue_name = None):
@@ -184,13 +204,9 @@ class FileAccessHelper:
       if node.firstChild.data == queue_name:
         dest_queue_node = node.parentNode
     if dest_queue_node is None:
-      if queue_name == 'default':
-        self.create_queue('default')
-        self.select_queue('default')
-      else:
-        raise QueueNotFoundError('Cannot find the queue with the name "{0}"'
-            .format(queue_name))
-    node.parentNode.tagName = 'Active'
+      raise QueueNotFoundError('Cannot find the queue with the name "{0}"'
+          .format(queue_name))
+    dest_queue_node.tagName = 'Active'
     self.save_queue_info_file()
     return
 
@@ -204,9 +220,6 @@ class FileAccessHelper:
   def get_queues(self, filter_tuple):
     dom = self.get_queue_info_dom()
     queue_nodes = []
-    if not dom.documentElement.childNodes:
-      self.create_queue('default')
-      self.select_queue('default')
     if filter_tuple[0]:
       queue_nodes = dom.documentElement.getElementsByTagName('Active')
     elif filter_tuple[1]:
@@ -214,3 +227,22 @@ class FileAccessHelper:
     else:
       queue_nodes = dom.documentElement.childNodes
     return map(lambda queue_node: Queue.parse_queue(queue_node), queue_nodes)
+
+  def delete_queue(self, queue_name):
+    if queue_name == 'default':
+      raise QueueNotFoundError('Default queue cannot be deleted')
+    dom = self.get_queue_info_dom()
+    dest_queue_node = None
+    for node in dom.getElementsByTagName('Name'):
+      if node.firstChild.data == queue_name:
+        dest_queue_node = node.parentNode
+    if dest_queue_node is None:
+      raise QueueNotFoundError('Cannot find the queue with the name \
+          "{0}"'.format(queue_name))
+    dest_queue_node.parentNode.removeChild(dest_queue_node)
+    self.save_queue_info_file()
+    try:
+      os.remove(self.get_queue_path(queue_name))
+    except OSError:
+      pass
+    return

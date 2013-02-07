@@ -3,7 +3,7 @@ setup(
     name = 'todoq',
     packages = ['todoqlib', 'todoqlib.test'],
     scripts = ['scripts/todoq'],
-    version = '1.0.4',
+    version = '1.0.6',
     description = 'Simplest command-line TODO list',
     author = 'Jeff Jia',
     author_email = 'jeffjia@outlook.com',

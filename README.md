@@ -132,6 +132,10 @@ taskq createq queue\_name
 ---------------
 Create a new queue.
 
+taskq deleteq queue\_name
+---------------
+Delete an existing queue.
+
 taskq --help, taskq -h, taskq help
 ---------------
 Show help. Any weird commands will also lead to help.

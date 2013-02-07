@@ -52,6 +52,26 @@ class SubCommandHandler:
     print 'There is no queue now.'
     return
 
+  def confirm(self, prompt=None, resp=False):
+    if prompt is None:
+      prompt = 'Confirm'
+    if resp:
+      prompt = '{0} [{1}]|{2}: '.format(prompt, 'y', 'n')
+    else:
+      prompt = '{0} [{1}]|{2}: '.format(prompt, 'n', 'y')
+    while True:
+      ans = raw_input(prompt)
+      if not ans:
+        return resp
+      if ans not in ['y', 'Y', 'n', 'N']:
+        print 'please enter y or n.'
+        continue
+      if ans == 'y' or ans == 'Y':
+        return True
+      if ans == 'n' or ans == 'N':
+        return False
+
+
 class SubCommandAddHandler(SubCommandHandler):
   """ The handler to deal with sub-command 'add' """
 
@@ -81,7 +101,8 @@ class SubCommandTopHandler(SubCommandHandler):
     """ The function to be called when sub-command 'top' is executed """
     try:
       task = helper.get_top_task()
-      print task.to_str()
+      print 'Top task in queue {0}: {1}'.format(helper.get_queue_name(),
+          task.to_str())
     except IndexError:
       self.print_no_task_error()
     return
@@ -194,6 +215,7 @@ class SubCommandShowqHandler(SubCommandHandler):
       print queue.to_str()
     return
 
+
 class SubCommandSelectqHandler(SubCommandHandler):
   """ The handler to deal with 'selectq' """
   def get_help_str(self):
@@ -213,6 +235,7 @@ class SubCommandSelectqHandler(SubCommandHandler):
       print detail
     return
 
+
 class SubCommandCreateqHandler(SubCommandHandler):
   """ The handler to deal with 'createq' """
   def get_help_str(self):
@@ -229,11 +252,35 @@ class SubCommandCreateqHandler(SubCommandHandler):
     print 'Create a new queue "{0}"'.format(args.queue_name[0])
     return
 
+
+class SubCommandDeleteqHandler(SubCommandHandler):
+  """ The handler to deal with 'createq' """
+  def get_help_str(self):
+    """ Returns the help str for 'createq' """
+    return 'delete an existing queue'
+
+  def add_arguments(self, subparser):
+    subparser.add_argument('queue_name', nargs = 1,
+                           help='the name of queue to be selected')
+    return
+
+  def execute(self, args):
+    if not self.confirm():
+      return
+    try:
+      helper.delete_queue(args.queue_name[0])
+      print 'Delete an existing queue "{0}"'.format(args.queue_name[0])
+    except QueueNotFoundError as detail:
+      print detail
+    return
+
+
 class SubCommandSyncHandler(SubCommandHandler):
   """ The handler to deal with 'sync' """
   def get_help_str(self):
     """ Returns the help str for 'sync' """
     return 'sync all the task queues with Dropbox'
+
 
 def main():
   app = CommandLineApplication([
@@ -246,6 +293,7 @@ def main():
       ('showq', SubCommandShowqHandler),
       ('selectq', SubCommandSelectqHandler),
       ('createq', SubCommandCreateqHandler),
+      ('deleteq', SubCommandDeleteqHandler),
       ('sync', SubCommandSyncHandler),
     ], debug=True);
   app.run()

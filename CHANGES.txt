@@ -13,3 +13,13 @@
 ===================
 
 - Support multiple queues
+
+1.0.5 (02-06-2013)
+===================
+
+- Minor bug fix for default queue
+
+1.0.6 (02-06-2013)
+===================
+
+- Minor bug fix for selectq
