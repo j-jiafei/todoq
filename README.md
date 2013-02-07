@@ -112,7 +112,7 @@ Options
 List all the queues. Single queue is recommended. Multiple queues are designed for those
 who like multiple-thread processing.
 
-### todoq selectq queue\_id
+### todoq selectq queue\_name
 
 Select the queue as the current queue.
 
