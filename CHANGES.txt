@@ -23,3 +23,13 @@
 ===================
 
 - Minor bug fix for selectq
+
+1.0.7 (02-06-2013)
+===================
+
+- All the subcommand except sync work
+
+1.0.8 (02-06-2013)
+===================
+
+- Replace the subcommand sync with set_path

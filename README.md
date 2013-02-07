@@ -73,7 +73,7 @@ pip install todoq -U
 Usage
 ===============
 
-taskq add task\_name priority
+todoq add task\_name priority
 ---------------
 
 Add a task into the current queue. If the last including-no-space string is a number, it will be used as priority.
@@ -81,33 +81,33 @@ Priority can be any unsigned int, so you can set any large or crazy number as yo
 and should be different from that of any other task.
 
 e.g. 
-taskq add "finish the front page UI design" 999
+todoq add "finish the front page UI design" 999
 task name - finish the front page UI design
 priority - 999
 
 e.g. 
-taskq add "check email" 10
+todoq add "check email" 10
 task name - check email
 priority - 10
 
 
-taskq top
+todoq top
 ---------------
 Display the top task. Yes, you are right, just the top one task.
 
-taskq finish
+todoq finish
 ---------------
 Mark the top task as "finished".
 
-taskq postpone priority
+todoq postpone priority
 ---------------
 Postpone the top task.
 
-taskq drop
+todoq drop
 ---------------
 Mark the top task as "dropped".
 
-taskq list
+todoq list
 ---------------
 List all the tasks in the current queue. HIGHLY NOT RECOMMENDED.
 
@@ -119,30 +119,34 @@ Options
 * \-d: list all the dropped tasks
 * \-n [count]: specifiy the number of tasks to be displayed
 
-taskq showq
+todoq showq
 ---------------
 List all the queues. Single queue is recommended. Multiple queues are designed for those
 who like multiple-thread processing.
 
-taskq selectq queue\_id
+todoq selectq queue\_id
 ---------------
 Select the queue as the current queue.
 
-taskq createq queue\_name
+todoq createq queue\_name
 ---------------
 Create a new queue.
 
-taskq deleteq queue\_name
+todoq deleteq queue\_name
 ---------------
 Delete an existing queue.
 
-taskq --help, taskq -h, taskq help
+todoq --help, todoq -h, todoq help
 ---------------
 Show help. Any weird commands will also lead to help.
 
-taskq sync
+todoq setpath
 ---------------
-Sync to dropbox. (Dropbox account required.)
+Set the directory path to store all todoq queue information and task
+informations.
+
+The default is ~/.todoq in Linux/Unix. The path could be set to be a
+subdirectory of Dropbox, and then the tasks can be synchronized automatically.
 
 
 License

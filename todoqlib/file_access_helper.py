@@ -6,13 +6,23 @@ from task import Task
 from queue import Queue
 from queue import QueueNotFoundError
 from sets import Set
+import shutil
 
 
 class FileAccessHelper:
   """ The helper class for data file saving, modifying and sync """
   def __init__(self, todoq_dir, debug = False):
-    self.todoq_dir = todoq_dir
-    self.queue_info_path = os.path.join(todoq_dir, 'queue.info')
+    self.init_todoq_dir = todoq_dir
+    try:
+      path_info_file = open(os.path.join(todoq_dir, 'path.info'), 'r')
+      self.todoq_dir = path_info_file.readlines()[0]
+      path_info_file.close()
+    except IOError:
+      self.todoq_dir = todoq_dir
+      path_info_file = open(os.path.join(todoq_dir, 'path.info'), 'w')
+      path_info_file.write(todoq_dir)
+      path_info_file.close()
+    self.queue_info_path = os.path.join(self.todoq_dir, 'queue.info')
     self.queue_info_dom = None
     self.debug = debug
     self.queue_name = None
@@ -35,7 +45,7 @@ class FileAccessHelper:
     if not 'default' in queue_name_set:
       self.create_queue('default')
     for file_name in os.listdir(self.todoq_dir):
-      if file_name == 'queue.info':
+      if not file_name.endswith('task'):
         continue
       queue_name = os.path.splitext(file_name)[0]
       if not queue_name == 'default' and not queue_name in queue_name_set:
@@ -246,3 +256,27 @@ class FileAccessHelper:
     except OSError:
       pass
     return
+
+  def set_path(self, path):
+    new_path = os.path.abspath(path)
+    if not os.path.exists(new_path):
+      os.makedirs(new_path)
+    path_info_file_path = os.path.join(self.init_todoq_dir, 'path.info')
+    try:
+      path_info_file = open(path_info_file_path, 'r')
+      prev_path = path_info_file.readlines()[0]
+    except IOError:
+      prev_path = init_todoq_dir
+      pass
+    if prev_path == new_path:
+      return False
+    path_info_file = open(path_info_file_path, 'w')
+    path_info_file.write(new_path)
+    path_info_file.close()
+    for file_name in os.listdir(prev_path):
+      if file_name == 'path.info':
+        continue
+      shutil.copy(os.path.join(prev_path, file_name), 
+                  os.path.join(new_path, file_name))
+      os.remove(os.path.join(prev_path, file_name))
+    return True
