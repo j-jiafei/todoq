@@ -1,10 +1,10 @@
-# Todoq
+# TodoQ
 
 The Simplest Command-line todo List
 
 ## Introduction
 
-Todoq is a single-task-display, priority-based, command-line todo list (I don't know whether someone has come up with such a concept as 
+TodoQ is a single-task-display, priority-based, command-line todo list (I don't know whether someone has come up with such a concept as 
 single-task display).
 
 "Single-task-display" means that usually it only displays the top task, and you can "finish", "drop" or "postpone" it.
@@ -13,11 +13,11 @@ single-task display).
 
 "Command-line" means it is run by linux / unix (mac included) terminal.
 
-Todoq also supports multiple queues, in case you want to work in multiple threads at the same time in a period.
+TodoQ also supports multiple queues, in case you want to work in multiple threads at the same time in a period.
 
 We also support the sync of tasks, and dropbox account is required if you want to use the feature.
 
-## The story behind the design of todoq
+## The story behind the design of TodoQ
 
 We hope to design the world's simplest command-line todo list, and we have two basic goals for it:
 1. The todo list should help users focus on work.
@@ -42,13 +42,13 @@ listed with the command "peek", which is highly not recommended. We hope users c
 about other tasks only when absolutely necessary.
 
 You may find such a design may be inconvenient sometimes. You may want to arrange the order of tasks, set a deadline for it, or simply drop
-some of them. These operations are almost unsupported in todoq. Instead, for the order, we use priority (basically any unsigned int number between
+some of them. These operations are almost unsupported in TodoQ. Instead, for the order, we use priority (basically any unsigned int number between
 0 and whatever python int type supports). The tasks are ordered based on priority completely. We don't use deadline for tasks. We believe that
 human mind should be able to transform urgency to priority easily, and for work, a good way to meet a deadline is to do it as early as possible.
 You may want to drop some of tasks since you have finished them, or they are not necessary any more, but why not do it later, cause managing todo
 list itself could also be "viewed" as a task with not-the-highest priority.
 
-We hope you could enjoy using todoq, and make it help you improve your valuable productivity.
+We hope you could enjoy using TodoQ, and make it help you improve your valuable productivity.
 
  
 ## Install
