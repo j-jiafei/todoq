@@ -1,16 +1,8 @@
-===============
- TODOQ
-===============
+# TODOQ
 
----------------------------------------
- The Simplest Command-line TODO List
----------------------------------------
+The Simplest Command-line TODO List
 
-
-To be released soon, and comments are welcome. Twitter: Jeff Jia @JeffreyFJ
-
-Introduction
-===============
+## Introduction
 
 TODOQ is a single-task-display, priority-based, command-line TODO list (I don't know whether someone has come up with such a concept as 
 single-task display).
@@ -25,8 +17,7 @@ TODOQ also supports multiple queues, in case you want to work in multiple thread
 
 We also support the sync of tasks, and dropbox account is required if you want to use the feature.
 
-The story behind the design of TODOQ
-===============
+## The story behind the design of TODOQ
 
 We hope to design the world's simplest command-line TODO list, and we have two basic goals for it:
 1. The TODO list should help users focus on work.
@@ -60,8 +51,7 @@ list itself could also be "viewed" as a task with not-the-highest priority.
 We hope you could enjoy using TODOQ, and make it help you improve your valuable productivity.
 
  
-Install
-===============
+## Install
 
 First-time install:
 pip install todoq
@@ -70,11 +60,9 @@ For update:
 pip install todoq -U
 
 
-Usage
-===============
+## Usage
 
-todoq add task\_name priority
----------------
+### todoq add task\_name priority
 
 Add a task into the current queue. If the last including-no-space string is a number, it will be used as priority.
 Priority can be any unsigned int, so you can set any large or crazy number as you want. A priority is forced to given,
@@ -91,24 +79,24 @@ task name - check email
 priority - 10
 
 
-todoq top
----------------
+### todoq top
+
 Display the top task. Yes, you are right, just the top one task.
 
-todoq finish
----------------
+### todoq finish
+
 Mark the top task as "finished".
 
-todoq postpone priority
----------------
+### todoq postpone priority
+
 Postpone the top task.
 
-todoq drop
----------------
+### todoq drop
+
 Mark the top task as "dropped".
 
-todoq list
----------------
+### todoq list
+
 List all the tasks in the current queue. HIGHLY NOT RECOMMENDED.
 
 Options
@@ -119,29 +107,29 @@ Options
 * \-d: list all the dropped tasks
 * \-n [count]: specifiy the number of tasks to be displayed
 
-todoq showq
----------------
+### todoq showq
+
 List all the queues. Single queue is recommended. Multiple queues are designed for those
 who like multiple-thread processing.
 
-todoq selectq queue\_id
----------------
+### todoq selectq queue\_id
+
 Select the queue as the current queue.
 
-todoq createq queue\_name
----------------
+### todoq createq queue\_name
+
 Create a new queue.
 
-todoq deleteq queue\_name
----------------
+### todoq deleteq queue\_name
+
 Delete an existing queue.
 
-todoq --help, todoq -h, todoq help
----------------
+### todoq --help, todoq -h, todoq help
+
 Show help. Any weird commands will also lead to help.
 
-todoq setpath
----------------
+### todoq setpath path
+
 Set the directory path to store all todoq queue information and task
 informations.
 
@@ -149,8 +137,8 @@ The default is ~/.todoq in Linux/Unix. The path could be set to be a
 subdirectory of Dropbox, and then the tasks can be synchronized automatically.
 
 
-License
-===============
+## License
+
 Apache license is applied if you want to use the source code.
 [ http://www.apache.org/licenses/LICENSE-2.0](
 http://www.apache.org/licenses/LICENSE-2.0)
