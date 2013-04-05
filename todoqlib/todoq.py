@@ -35,7 +35,7 @@ class SubCommandHandler:
   def get_help_str(self):
     """ Returns default help str """
     return 'sub-command'
-  
+
   def add_arguments(self, subparser):
     """ Add no arguments for default """
     return

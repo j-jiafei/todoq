@@ -33,3 +33,13 @@
 ===================
 
 - Replace the subcommand sync with set_path
+
+1.0.9 (04-05-2013)
+===================
+
+- Fix the "directory does not exist" bug in initialization
+
+1.0.10 (04-05-2013)
+===================
+
+- Fix the "README.txt not found" error

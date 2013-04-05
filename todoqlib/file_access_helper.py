@@ -14,6 +14,8 @@ class FileAccessHelper:
   def __init__(self, todoq_dir, debug = False):
     self.init_todoq_dir = todoq_dir
     try:
+      if not os.path.exists(self.init_todoq_dir):
+        os.mkdir(self.init_todoq_dir)
       path_info_file = open(os.path.join(todoq_dir, 'path.info'), 'r')
       self.todoq_dir = path_info_file.readlines()[0]
       path_info_file.close()
@@ -35,7 +37,7 @@ class FileAccessHelper:
     """ Initialization check """
 # existance of todoq_dir
     if not os.path.exists(self.todoq_dir):
-      os.makedirs(todoq_dir)
+      os.makedirs(self.todoq_dir)
 # existance of queue_info_path
     queue_info_dom = self.get_queue_info_dom()
 # default task check
