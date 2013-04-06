@@ -104,7 +104,7 @@ class SubCommandTopHandler(SubCommandHandler):
     """ The function to be called when sub-command 'top' is executed """
     try:
       task = helper.get_top_task()
-      print "[todoq] Top task in '{0}'".format(helper.get_queue_name())
+      print "[todoq] The top task in '{0}'".format(helper.get_queue_name())
       print ""
       print "\t{0} <- {1}".format(task.get_name(), task.get_priority())
       print ""
@@ -117,7 +117,7 @@ class SubCommandFinishHandler(SubCommandHandler):
   """ The handler to deal with 'finish' """
   def get_help_str(self):
     """ Returns the help str for 'finish' """
-    return 'mark the top task as finished and archive it'
+    return 'finish and archive the top task'
 
   def execute(self, args):
     try:
@@ -125,10 +125,11 @@ class SubCommandFinishHandler(SubCommandHandler):
       top_task_name = top_task.get_name()
       top_task_priority = top_task.get_priority()
       helper.mark_top_task_as_finished()
-      print "[todoq] Top task in '{0}' is finished!".format(
+      print "[todoq] The top task in '{0}' is finished!".format(
           helper.get_queue_name())
       print ""
-      print "\t{0} <- {1}".format(top_task_name, top_task_priority)
+# \u2714 is the heavy check mark in unicode
+      print u"\t{0} <- {1} \u2714".format(top_task_name, top_task_priority)
       print ""
     except IndexError:
       self.print_no_task_error()
@@ -159,11 +160,20 @@ class SubCommandDropHandler(SubCommandHandler):
   """ The handler to deal with 'drop' """
   def get_help_str(self):
     """ Returns the help str for 'drop' """
-    return 'mark the top task as dropped and archive it'
+    return "'drop' the top task and archive it"
 
   def execute(self, args):
     try:
+      top_task = helper.get_top_task()
+      top_task_name = top_task.get_name()
+      top_task_priority = top_task.get_priority()
       helper.mark_top_task_as_dropped()
+      print "[todoq] The top task in '{0}' is dropped...".format(
+          helper.get_queue_name())
+      print ""
+# \u2714 is the heavy check mark in unicode
+      print u"\t{0} <- {1} \u2718".format(top_task_name, top_task_priority)
+      print ""
     except IndexError:
       self.print_no_task_error()
     return
