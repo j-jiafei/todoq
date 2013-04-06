@@ -12,18 +12,7 @@ import shutil
 class FileAccessHelper:
   """ The helper class for data file saving, modifying and sync """
   def __init__(self, todoq_dir, debug = False):
-    self.init_todoq_dir = todoq_dir
-    try:
-      if not os.path.exists(self.init_todoq_dir):
-        os.mkdir(self.init_todoq_dir)
-      path_info_file = open(os.path.join(todoq_dir, 'path.info'), 'r')
-      self.todoq_dir = path_info_file.readlines()[0]
-      path_info_file.close()
-    except IOError:
-      self.todoq_dir = todoq_dir
-      path_info_file = open(os.path.join(todoq_dir, 'path.info'), 'w')
-      path_info_file.write(todoq_dir)
-      path_info_file.close()
+    self.todoq_dir = todoq_dir
     self.queue_info_path = os.path.join(self.todoq_dir, 'queue.info')
     self.queue_info_dom = None
     self.debug = debug
@@ -35,12 +24,9 @@ class FileAccessHelper:
 
   def init_check(self, debug):
     """ Initialization check """
-# existance of todoq_dir
     if not os.path.exists(self.todoq_dir):
       os.makedirs(self.todoq_dir)
-# existance of queue_info_path
     queue_info_dom = self.get_queue_info_dom()
-# default task check
     queue_name_set = Set()
     for node in queue_info_dom.documentElement.getElementsByTagName('Name'):
       queue_name_set.add(node.firstChild.data)
@@ -52,11 +38,10 @@ class FileAccessHelper:
       queue_name = os.path.splitext(file_name)[0]
       if not queue_name == 'default' and not queue_name in queue_name_set:
         self.create_queue(queue_name)
-# active task check
     if not queue_info_dom.documentElement.getElementsByTagName('Active'):
       self.select_queue('default')
     return
-  
+
   def set_debug(self, debug):
     self.debug = debug
     return
@@ -158,7 +143,7 @@ class FileAccessHelper:
     """ Return the the top task """
     top_node = self.get_top_node()
     return Task.parse_task(top_node)
-  
+
   def change_top_task_to_tag(self, tag):
     queue_dom = self.get_queue_dom()
     top_node = self.get_top_node()
@@ -166,12 +151,12 @@ class FileAccessHelper:
       print 'Mark top task "{0}" as {1}'.format(self.get_node_data(top_node, 'Name'), tag)
     top_node.tagName = tag
     return
-    
+
   def mark_top_task_as_finished(self):
     self.change_top_task_to_tag('Finished')
     self.save_queue_file()
     return
-  
+
   def mark_top_task_as_dropped(self):
     self.change_top_task_to_tag('Dropped')
     self.save_queue_file()
@@ -258,27 +243,3 @@ class FileAccessHelper:
     except OSError:
       pass
     return
-
-  def set_path(self, path):
-    new_path = os.path.abspath(path)
-    if not os.path.exists(new_path):
-      os.makedirs(new_path)
-    path_info_file_path = os.path.join(self.init_todoq_dir, 'path.info')
-    try:
-      path_info_file = open(path_info_file_path, 'r')
-      prev_path = path_info_file.readlines()[0]
-    except IOError:
-      prev_path = init_todoq_dir
-      pass
-    if prev_path == new_path:
-      return False
-    path_info_file = open(path_info_file_path, 'w')
-    path_info_file.write(new_path)
-    path_info_file.close()
-    for file_name in os.listdir(prev_path):
-      if file_name == 'path.info':
-        continue
-      shutil.copy(os.path.join(prev_path, file_name), 
-                  os.path.join(new_path, file_name))
-      os.remove(os.path.join(prev_path, file_name))
-    return True

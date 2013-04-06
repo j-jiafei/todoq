@@ -275,30 +275,6 @@ class SubCommandDeleteqHandler(SubCommandHandler):
     return
 
 
-class SubCommandSetPathHandler(SubCommandHandler):
-  """ The handler to deal with 'setpath' """
-  def get_help_str(self):
-    """ Returns the help str for 'setpath' """
-    return 
-
-  def add_arguments(self, subparser):
-    subparser.add_argument('path', nargs=1,
-                           help='the path of the directory to store todoq data \
-                           files')
-    return
-
-  def execute(self, args):
-    if not self.confirm(prompt='Are you sure to set the todoq data directory' 
-        'to the path: {0}?'.format(args.path[0])):
-      return
-    if helper.set_path(args.path[0]):
-      print 'todoq data dir path is set to: {0}'.format(
-          os.path.abspath(args.path[0]))
-    else:
-      print 'todoq data dir path is unchanged.'
-    return
-
-
 def main():
   app = CommandLineApplication([
       ('add', SubCommandAddHandler),
@@ -311,9 +287,9 @@ def main():
       ('selectq', SubCommandSelectqHandler),
       ('createq', SubCommandCreateqHandler),
       ('deleteq', SubCommandDeleteqHandler),
-      ('setpath', SubCommandSetPathHandler),
     ], debug=True);
   app.run()
+
 
 if __name__ == '__main__':
   main()
