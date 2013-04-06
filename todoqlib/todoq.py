@@ -74,7 +74,6 @@ class SubCommandHandler:
 
 class SubCommandAddHandler(SubCommandHandler):
   """ The handler to deal with sub-command 'add' """
-
   def get_help_str(self):
     """ Returns the help str for sub-command 'add' """
     return 'add a new task'
@@ -88,6 +87,10 @@ class SubCommandAddHandler(SubCommandHandler):
   def execute(self, args):
     """ The function to be called when sub-command 'add' is executed """
     helper.add_task(args.task_name[0], args.priority[0])
+    print "[todoq] Add a new task to '{0}'".format(helper.get_queue_name())
+    print ""
+    print "\t{0} <- {1}".format(args.task_name[0], args.priority[0])
+    print ""
     return
 
 
@@ -101,8 +104,10 @@ class SubCommandTopHandler(SubCommandHandler):
     """ The function to be called when sub-command 'top' is executed """
     try:
       task = helper.get_top_task()
-      print 'Top task in queue {0}: {1}'.format(helper.get_queue_name(),
-          task.to_str())
+      print "[todoq] Top task in '{0}'".format(helper.get_queue_name())
+      print ""
+      print "\t{0} <- {1}".format(task.get_name(), task.get_priority())
+      print ""
     except IndexError:
       self.print_no_task_error()
     return
@@ -116,7 +121,15 @@ class SubCommandFinishHandler(SubCommandHandler):
 
   def execute(self, args):
     try:
+      top_task = helper.get_top_task()
+      top_task_name = top_task.get_name()
+      top_task_priority = top_task.get_priority()
       helper.mark_top_task_as_finished()
+      print "[todoq] Top task in '{0}' is finished!".format(
+          helper.get_queue_name())
+      print ""
+      print "\t{0} <- {1}".format(top_task_name, top_task_priority)
+      print ""
     except IndexError:
       self.print_no_task_error()
     return

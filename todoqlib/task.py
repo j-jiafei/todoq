@@ -35,3 +35,9 @@ class Task:
   def to_str(self):
     """ print tasks """
     return '"{0}" {1} {2}'.format(self.name, self.priority, self.status)
+
+  def get_name(self):
+    return self.name
+
+  def get_priority(self):
+    return self.priority

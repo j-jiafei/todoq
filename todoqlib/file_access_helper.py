@@ -111,9 +111,6 @@ class FileAccessHelper:
 
   def add_task(self, task_name, priority):
     """ Add the new task to the curr queue """
-    if self.debug:
-      print 'add new task {0} with priority {1} to queue {2}'.format(\
-          task_name, priority, self.get_queue_name())
     queue_dom = self.get_queue_dom()
     queue_node = self.get_queue_node()
     task = Task(task_name, priority, 'Unfinished')
@@ -147,8 +144,6 @@ class FileAccessHelper:
   def change_top_task_to_tag(self, tag):
     queue_dom = self.get_queue_dom()
     top_node = self.get_top_node()
-    if self.debug:
-      print 'Mark top task "{0}" as {1}'.format(self.get_node_data(top_node, 'Name'), tag)
     top_node.tagName = tag
     return
 
