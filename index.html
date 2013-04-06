@@ -1,186 +1,243 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="TodoQ : The simplest command-line todo list, which helps with extreme focus." />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>TodoQ by jeffjia</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>TodoQ</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1>TodoQ</h1>
+        <p>The simplest command-line todo list, which helps with extreme focus.</p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/jeffjia/todoq">View on GitHub</a>
+        <p class="view"><a href="https://github.com/jeffjia/todoq">View the Project on GitHub <small>jeffjia/todoq</small></a></p>
 
-          <h1 id="project_title">TodoQ</h1>
-          <h2 id="project_tagline">The simplest command-line todo list, which helps with extreme focus.</h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/jeffjia/todoq/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/jeffjia/todoq/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+        <ul>
+          <li><a href="https://github.com/jeffjia/todoq/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/jeffjia/todoq/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/jeffjia/todoq">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
         <h1>TodoQ</h1>
 
 <p>The Simplest Command-line todo List</p>
 
 <h2>Introduction</h2>
 
-<p>TodoQ is a single-task-display, priority-based, command-line todo list (I don't know whether someone has come up with such a concept as 
-single-task display).</p>
+<p>TodoQ is a single-task-display, priority-based, command-line todo list (I don't
+know whether someone has come up with such a concept as single-task display).</p>
 
-<p>"Single-task-display" means that usually it only displays the top task, and you can "finish", "drop" or "postpone" it.</p>
+<p>"Single-task-display" means that usually it only displays the top task, and you
+can "finish", "drop" or "postpone" it.</p>
 
-<p>"Priority-based" means the order of tasks is totally based on priority, which is an unsigned int (whichever python int type supports).</p>
+<p>"Priority-based" means the order of tasks is totally based on priority, which is
+an unsigned int (whichever python int type supports).</p>
 
 <p>"Command-line" means it is run by linux / unix (mac included) terminal.</p>
 
-<p>TodoQ also supports multiple queues, in case you want to work in multiple threads at the same time in a period.</p>
+<p>TodoQ also supports multiple queues, in case you want to work in multiple
+threads at the same time in a period.</p>
 
 <p>We also support the sync of tasks, and dropbox account is required if you want to use the feature.</p>
 
 <h2>The story behind the design of TodoQ</h2>
 
-<p>We hope to design the world's simplest command-line todo list, and we have two basic goals for it:
-1. The todo list should help users focus on work.
-2. The task management overhead should be minimized.</p>
+<p>We hope to design the world's simplest command-line todo list, and we have two
+basic goals for it:</p>
 
-<p>Personally I am a todo list enthusiast. Starting from paper and pencil when I was in high school, I have been trying to use
-todo list to help me schedule my life. I explored and used different methods and tools to help me track the status of
-daily tasks. Some of the tools are pretty cool, and I actually used them for quite while. But from my experience, I found that I
-never kept using a single tool for more than two weeks. At first, I might be attracted to a tool and make up my mind for a resolution
-to make my life well-planed. But soon I found that the tool does not actually help me much on focus and getting things done, but the
-overhead to manage the todo list itself is pretty high.</p>
+<ol>
+<li>The todo list should help users focus on work.</li>
+<li>The task management overhead should be minimized.</li>
+</ol><p>Personally I am a todo list enthusiast. Starting from paper and pencil when I
+was in high school, I have been trying to use todo list to help me schedule my
+life. I explored and used different methods and tools to help me track the
+status of daily tasks. Some of the tools are pretty cool, and I actually used
+them for quite while. But from my experience, I found that I never kept using a
+single tool for more than two weeks. At first, I might be attracted to a tool
+and make up my mind for a resolution to make my life well-planed. But soon I
+found that the tool does not actually help me much on focus and getting things
+done, but the overhead to manage the todo list itself is pretty high.</p>
 
-<p>Now as a research assistant, a side-project developer and a student at the same time. I use command-line tools quite a lot every day.
-Sometimes I use web-based todo list to help me track problems to solve, features to implement, or bugs to fix. But switching between
-command line and browser can be a pain sometimes, and looks less professional. Such a switching could also be distracting sometimes.</p>
+<p>Now as a research assistant, a side-project developer and a student at the same
+time. I use command-line tools quite a lot every day.  Sometimes I use web-based
+todo list to help me track problems to solve, features to implement, or bugs to
+fix. But switching between command line and browser can be a pain sometimes, and
+looks less professional. Such a switching could also be distracting sometimes.</p>
 
-<p>Then my friends and I decide to write a todo list tool for developers like us, basically command-line everything guys =). We hope it 
-could be really light-wight, "prevent" over-managing task list, and help focus on work. So we come up with the idea of single-task
-display todo list. Instead of displaying all the tasks, we simply show the top one, the one with the highest priority. Operations,
-like "finish", "drop", "postpone", are only limited to the top one to minimize the todo list management overhead. Tasks can still be
-listed with the command "peek", which is highly not recommended. We hope users could just focus on the top task at the moment, and thinking
-about other tasks only when absolutely necessary.</p>
+<p>Then my friends and I decide to write a todo list tool for developers like us,
+basically command-line everything guys =). We hope it could be really
+light-wight, "prevent" over-managing task list, and help focus on work. So we
+come up with the idea of single-task display todo list. Instead of displaying
+all the tasks, we simply show the top one, the one with the highest priority.
+Operations, like "finish", "drop", "postpone", are only limited to the top one
+to minimize the todo list management overhead. Tasks can still be listed with
+the command "peek", which is highly not recommended. We hope users could just
+focus on the top task at the moment, and thinking about other tasks only when
+absolutely necessary.</p>
 
-<p>You may find such a design may be inconvenient sometimes. You may want to arrange the order of tasks, set a deadline for it, or simply drop
-some of them. These operations are almost unsupported in TodoQ. Instead, for the order, we use priority (basically any unsigned int number between
-0 and whatever python int type supports). The tasks are ordered based on priority completely. We don't use deadline for tasks. We believe that
-human mind should be able to transform urgency to priority easily, and for work, a good way to meet a deadline is to do it as early as possible.
-You may want to drop some of tasks since you have finished them, or they are not necessary any more, but why not do it later, cause managing todo
-list itself could also be "viewed" as a task with not-the-highest priority.</p>
+<p>You may find such a design may be inconvenient sometimes. You may want to
+arrange the order of tasks, set a deadline for it, or simply drop some of them.
+These operations are almost unsupported in TodoQ. Instead, for the order, we use
+priority (basically any unsigned int number between 0 and whatever python int
+type supports). The tasks are ordered based on priority completely. We don't use
+deadline for tasks. We believe that human mind should be able to transform
+urgency to priority easily, and for work, a good way to meet a deadline is to do
+it as early as possible.  You may want to drop some of tasks since you have
+finished them, or they are not necessary any more, but why not do it later,
+cause managing todo list itself could also be "viewed" as a task with
+not-the-highest priority.</p>
 
-<p>We hope you could enjoy using TodoQ, and make it help you improve your valuable productivity.</p>
+<p>We hope you could enjoy using TodoQ, and make it help you improve your valuable
+productivity.</p>
 
 <h2>Install</h2>
 
-<p>First-time install:
-pip install todoq</p>
+<p>First-time install:</p>
 
-<p>For update:
-pip install todoq -U</p>
+<pre><code>sudo pip install todoq
+</code></pre>
 
-<h2>Usage</h2>
+<p>Update:</p>
 
-<h3>todoq add task_name priority</h3>
+<pre><code>sudo pip install todoq -U
+</code></pre>
 
-<p>Add a task into the current queue. If the last including-no-space string is a number, it will be used as priority.
-Priority can be any unsigned int, so you can set any large or crazy number as you want. A priority is forced to given,
+<p>Uninstall:</p>
+
+<pre><code>sudo pip uninstall todoq
+</code></pre>
+
+<h2>Usage - Sub-commands</h2>
+
+<h3>Add a new task</h3>
+
+<pre><code>todoq add task_name priority
+</code></pre>
+
+<p>Add a task into the current queue. If the last including-no-space string is a
+number, it will be used as priority.  Priority can be any unsigned int, so you
+can set any large or crazy number as you want. A priority is forced to given,
 and should be different from that of any other task.</p>
 
-<p>e.g. 
-todoq add "finish the front page UI design" 999
-task name - finish the front page UI design
+<p>Example #1</p>
+
+<pre><code>todoq add "finish the front page UI design" 999
+</code></pre>
+
+<p>task name - finish the front page UI design
 priority - 999</p>
 
-<p>e.g. 
-todoq add "check email" 10
-task name - check email
+<p>Example #2</p>
+
+<pre><code>todoq add "check email" 10
+</code></pre>
+
+<p>task name - check email
 priority - 10</p>
 
-<h3>todoq top</h3>
+<h3>Show the top task</h3>
+
+<pre><code>todoq top
+</code></pre>
 
 <p>Display the top task. Yes, you are right, just the top one task.</p>
 
-<h3>todoq finish</h3>
+<h3>Finish the top task</h3>
+
+<pre><code>todoq finish
+</code></pre>
 
 <p>Mark the top task as "finished".</p>
 
-<h3>todoq postpone priority</h3>
+<h3>Postpone the top task</h3>
 
-<p>Postpone the top task.</p>
+<pre><code>todoq postpone [priority]
+</code></pre>
 
-<h3>todoq drop</h3>
+<p>If <code>priority</code> is specified, the top task is postponed with the new priority.
+Otherwise, the top task is postponed after the second task.</p>
+
+<h3>Drop the top task</h3>
+
+<pre><code>todoq drop
+</code></pre>
 
 <p>Mark the top task as "dropped".</p>
 
-<h3>todoq list</h3>
+<h3>Show the complete task list</h3>
 
-<p>List all the tasks in the current queue. HIGHLY NOT RECOMMENDED.</p>
+<pre><code>todoq list
+</code></pre>
+
+<p>List all the tasks in the current queue. The sub-command should be used rarely
+to avoid distraction.</p>
 
 <p>Options</p>
 
-<ul>
-<li>-u: list all the unfinished tasks</li>
-<li>-a: list all the tasks</li>
-<li>-f: list all the finished tasks</li>
-<li>-d: list all the dropped tasks</li>
-<li>-n [count]: specifiy the number of tasks to be displayed</li>
-</ul><h3>todoq showq</h3>
+<pre><code>-u: list all the unfinished tasks
+-a: list all the tasks
+-f: list all the finished tasks
+-d: list all the dropped tasks
+-n count: specifiy the number of tasks to be displayed
+</code></pre>
 
-<p>List all the queues. Single queue is recommended. Multiple queues are designed for those
-who like multiple-thread processing.</p>
+<h3>Show all the task queues</h3>
 
-<h3>todoq selectq queue_name</h3>
+<pre><code>todoq showq
+</code></pre>
+
+<p>List all the queues. Single queue is recommended. Multiple queues are provided
+in case you have multiple projects at hand.</p>
+
+<h3>Select a task queue</h3>
+
+<pre><code>todoq selectq queue_name
+</code></pre>
 
 <p>Select the queue as the current queue.</p>
 
-<h3>todoq createq queue_name</h3>
+<h3>Create a new task queue</h3>
+
+<pre><code>todoq createq queue_name
+</code></pre>
 
 <p>Create a new queue.</p>
 
-<h3>todoq deleteq queue_name</h3>
+<h3>Delete a task queue</h3>
+
+<pre><code>todoq deleteq queue_name
+</code></pre>
 
 <p>Delete an existing queue.</p>
 
-<h3>todoq --help, todoq -h, todoq help</h3>
+<h3>Show usage</h3>
 
-<p>Show help. Any weird commands will also lead to help.</p>
+<pre><code>todoq --help, todoq -h, todoq help
+</code></pre>
 
-<h3>todoq setpath path</h3>
-
-<p>Set the directory path to store all todoq queue information and task
-informations.</p>
-
-<p>The default is ~/.todoq in Linux/Unix. The path could be set to be a
-subdirectory of Dropbox, and then the tasks can be synchronized automatically.</p>
+<p>Show help. Any "unexpected" command will also lead to help.</p>
 
 <h2>License</h2>
 
 <p>Apache license is applied if you want to use the source code.
-<a href="http://www.apache.org/licenses/LICENSE-2.0"> http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">TodoQ maintained by <a href="https://github.com/jeffjia">jeffjia</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/jeffjia">jeffjia</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-
+    <script src="javascripts/scale.fix.js"></script>
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -191,7 +248,6 @@ subdirectory of Dropbox, and then the tasks can be synchronized automatically.</
             pageTracker._trackPageview();
             } catch(err) {}
           </script>
-
 
   </body>
 </html>
