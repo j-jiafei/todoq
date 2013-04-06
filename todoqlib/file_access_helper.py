@@ -130,11 +130,15 @@ class FileAccessHelper:
     return node.getElementsByTagName(tag)[0].childNodes[0].data
 
   def get_top_node(self):
+    return self.get_kth_top_node(0);
+
+  def get_kth_top_node(self, k):
     queue_dom = self.get_queue_dom()
     unfinished_tasks = queue_dom.getElementsByTagName('Unfinished')
     heap = self.get_task_heap(unfinished_tasks)
-    top_node = heap[0][1]
+    top_node = heap[k][1]
     return top_node
+
 
   def get_top_task(self):
     """ Return the the top task """
@@ -160,9 +164,17 @@ class FileAccessHelper:
   def postpone_top_task(self, priority):
     dom = self.get_queue_dom()
     top_node = self.get_top_node()
-    if self.debug:
-      print 'Reset top task with the priority of {0}'.format(priority)
-    top_node.getElementsByTagName('Priority')[0].firstChild.data = str(priority)
+    if (priority):
+      top_node.getElementsByTagName('Priority')[0].firstChild.data = str(priority)
+    else:
+      try:
+        second_top_node = self.get_kth_top_node(1)
+        second_top_node_priority = int(second_top_node.getElementsByTagName(
+          'Priority')[0].firstChild.data)
+        top_node.getElementsByTagName('Priority')[0].firstChild.data = str(
+          second_top_node_priority - 1)
+      except IndexError:
+        pass
     self.save_queue_file()
     return
 

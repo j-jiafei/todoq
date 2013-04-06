@@ -144,13 +144,19 @@ class SubCommandPostponeHandler(SubCommandHandler):
 
   def add_arguments(self, subparser):
     """ Add the priority argument for 'postpone """
-    subparser.add_argument('priority', type=int, nargs=1)
+    subparser.add_argument('priority', type=int, nargs='?')
     return
 
   def execute(self, args):
     """ Change the priority value of the top task """
     try:
-      helper.postpone_top_task(args.priority[0])
+      top_task = helper.get_top_task()
+      helper.postpone_top_task(args.priority)
+      print "[todoq] Postpone the top task in '{0}'".format(
+          helper.get_queue_name())
+      print ""
+      print "\t{0} <- {1}".format(top_task.name, top_task.priority)
+      print ""
     except IndexError:
       self.print_no_task_error()
     return
