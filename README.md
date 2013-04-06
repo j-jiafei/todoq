@@ -136,7 +136,7 @@ Mark the top task as "dropped".
 
 ### Show the complete task list
 
-    todoq list
+    todoq ls
 
 List all the tasks in the current queue. The sub-command should be used rarely
 to avoid distraction.
