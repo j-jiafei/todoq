@@ -1,6 +1,6 @@
 # TodoQ
 
-The Simplest Command-line todo List
+The simplest command-line todo list to help you stay focused at work.
 
 ## Introduction
 
