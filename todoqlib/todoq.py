@@ -196,19 +196,19 @@ class SubCommandListHandler(SubCommandHandler):
 
   def add_arguments(self, subparser):
     """ Add the priority argument for 'postpone """
-    subparser.add_argument('-u', '--unfinished', 
+    subparser.add_argument('-u', '--unfinished',
                            help='display all the unfinished tasks',
                            action='store_true')
-    subparser.add_argument('-a', '--all', 
+    subparser.add_argument('-a', '--all',
                            help='display all the tasks',
                            action='store_true')
-    subparser.add_argument('-f', '--finished', 
+    subparser.add_argument('-f', '--finished',
                            help='display all the finished tasks',
                            action='store_true')
-    subparser.add_argument('-d', '--dropped', 
+    subparser.add_argument('-d', '--dropped',
                            help='display all the dropped tasks',
                            action='store_true')
-    subparser.add_argument('-n', '--count', 
+    subparser.add_argument('-n', '--count',
                            help='specify the number of tasks to be displayed',
                            type=int)
     return

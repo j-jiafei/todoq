@@ -43,3 +43,10 @@
 ===================
 
 - Fix the "README.txt not found" error
+
+1.0.11 (04-06-2013)
+===================
+
+- Change the text ui interface of the sub-command add, drop, finish, postpone.
+- Remove set_path.
+- Minor format change to README.md.
