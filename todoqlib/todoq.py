@@ -81,15 +81,15 @@ class SubCommandAddHandler(SubCommandHandler):
   def add_arguments(self, subparser):
     """ Add optional and positional arguments to subparser """
     subparser.add_argument('task_name', nargs=1)
-    subparser.add_argument('priority', type=int, nargs=1)
+    subparser.add_argument('priority', type=int, nargs='?', default=17)
     return
 
   def execute(self, args):
     """ The function to be called when sub-command 'add' is executed """
-    helper.add_task(args.task_name[0], args.priority[0])
+    helper.add_task(args.task_name[0], args.priority)
     print "[todoq] Add a new task to '{0}'".format(helper.get_queue_name())
     print ""
-    print "\t{0} <- {1}".format(args.task_name[0], args.priority[0])
+    print "\t{0} <- {1}".format(args.task_name[0], args.priority)
     print ""
     return
 
@@ -125,7 +125,7 @@ class SubCommandFinishHandler(SubCommandHandler):
       top_task_name = top_task.get_name()
       top_task_priority = top_task.get_priority()
       helper.mark_top_task_as_finished()
-      print "[todoq] The top task in '{0}' is finished!".format(
+      print "[todoq] Finish the top task in '{0}'!".format(
           helper.get_queue_name())
       print ""
 # \u2714 is the heavy check mark in unicode
@@ -168,7 +168,7 @@ class SubCommandDropHandler(SubCommandHandler):
       top_task_name = top_task.get_name()
       top_task_priority = top_task.get_priority()
       helper.mark_top_task_as_dropped()
-      print "[todoq] The top task in '{0}' is dropped...".format(
+      print "[todoq] Drop the top task in '{0}'...".format(
           helper.get_queue_name())
       print ""
 # \u2714 is the heavy check mark in unicode
