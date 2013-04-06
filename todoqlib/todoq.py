@@ -150,11 +150,13 @@ class SubCommandPostponeHandler(SubCommandHandler):
   def execute(self, args):
     """ Change the priority value of the top task """
     try:
-      top_task = helper.get_top_task()
       helper.postpone_top_task(args.priority)
       print "[todoq] Postpone the top task in '{0}'".format(
           helper.get_queue_name())
+      print "[todoq] The current top task in '{0}'".format(
+          helper.get_queue_name())
       print ""
+      top_task = helper.get_top_task()
       print "\t{0} <- {1}".format(top_task.name, top_task.priority)
       print ""
     except IndexError:
@@ -311,7 +313,7 @@ def main():
       ('postpone', SubCommandPostponeHandler),
       ('finish', SubCommandFinishHandler),
       ('drop', SubCommandDropHandler),
-      ('list', SubCommandListHandler),
+      ('ls', SubCommandListHandler),
       ('showq', SubCommandShowqHandler),
       ('selectq', SubCommandSelectqHandler),
       ('createq', SubCommandCreateqHandler),
