@@ -84,7 +84,7 @@ Uninstall:
 
     sudo pip uninstall todoq
 
-## Usage - Sub-commands
+## Usage
 
 ### Add a new task
 
