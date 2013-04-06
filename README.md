@@ -88,12 +88,9 @@ Uninstall:
 
 ### Add a new task
 
-    todoq add task_name priority
+    todoq add task_name [priority]
 
-Add a task into the current queue. If the last including-no-space string is a
-number, it will be used as priority.  Priority can be any unsigned int, so you
-can set any large or crazy number as you want. A priority is forced to given,
-and should be different from that of any other task.
+Add a task into the current queue with the specified priority.
 
 Example #1
 
@@ -104,10 +101,10 @@ priority - 999
 
 Example #2
 
-    todoq add "check email" 10
+    todoq add "check email"
 
 task name - check email
-priority - 10
+priority - 17 (default priority value)
 
 ### Show the top task
 
