@@ -50,3 +50,9 @@
 - Change the text ui interface of the sub-command add, drop, finish, postpone.
 - Remove set_path.
 - Minor format change to README.md.
+
+1.0.12 (08-17-2013)
+===================
+
+- Copy README.md to README.txt.
+- Fix the link in setup.py.
