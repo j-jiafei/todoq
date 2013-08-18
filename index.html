@@ -28,11 +28,13 @@
         </ul>
       </header>
       <section>
-        <h1>TodoQ</h1>
+        <h1>
+<a name="todoq" class="anchor" href="#todoq"><span class="octicon octicon-link"></span></a>TodoQ</h1>
 
 <p>The simplest command-line todo list to help you focused better at work.</p>
 
-<h2>Introduction</h2>
+<h2>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
 <p>TodoQ is a single-task-display, priority-based, command-line todo list (I don't
 know whether someone has come up with such a concept as single-task display).</p>
@@ -50,7 +52,8 @@ threads at the same time in a period.</p>
 
 <p>We also support the sync of tasks, and dropbox account is required if you want to use the feature.</p>
 
-<h2>The story behind the design of TodoQ</h2>
+<h2>
+<a name="the-story-behind-the-design-of-todoq" class="anchor" href="#the-story-behind-the-design-of-todoq"><span class="octicon octicon-link"></span></a>The story behind the design of TodoQ</h2>
 
 <p>We hope to design the world's simplest command-line todo list, and we have two
 basic goals for it:</p>
@@ -100,7 +103,8 @@ not-the-highest priority.</p>
 <p>We hope you could enjoy using TodoQ, and make it help you improve your valuable
 productivity.</p>
 
-<h2>Install</h2>
+<h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
 
 <p>First-time install:</p>
 
@@ -117,17 +121,16 @@ productivity.</p>
 <pre><code>sudo pip uninstall todoq
 </code></pre>
 
-<h2>Usage</h2>
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<h3>Add a new task</h3>
+<h3>
+<a name="add-a-new-task" class="anchor" href="#add-a-new-task"><span class="octicon octicon-link"></span></a>Add a new task</h3>
 
-<pre><code>todoq add task_name priority
+<pre><code>todoq add task_name [priority]
 </code></pre>
 
-<p>Add a task into the current queue. If the last including-no-space string is a
-number, it will be used as priority.  Priority can be any unsigned int, so you
-can set any large or crazy number as you want. A priority is forced to given,
-and should be different from that of any other task.</p>
+<p>Add a task into the current queue with the specified priority.</p>
 
 <p>Example #1</p>
 
@@ -139,27 +142,30 @@ priority - 999</p>
 
 <p>Example #2</p>
 
-<pre><code>todoq add "check email" 10
+<pre><code>todoq add "check email"
 </code></pre>
 
 <p>task name - check email
-priority - 10</p>
+priority - 17 (default priority value)</p>
 
-<h3>Show the top task</h3>
+<h3>
+<a name="show-the-top-task" class="anchor" href="#show-the-top-task"><span class="octicon octicon-link"></span></a>Show the top task</h3>
 
 <pre><code>todoq top
 </code></pre>
 
 <p>Display the top task. Yes, you are right, just the top one task.</p>
 
-<h3>Finish the top task</h3>
+<h3>
+<a name="finish-the-top-task" class="anchor" href="#finish-the-top-task"><span class="octicon octicon-link"></span></a>Finish the top task</h3>
 
 <pre><code>todoq finish
 </code></pre>
 
 <p>Mark the top task as "finished".</p>
 
-<h3>Postpone the top task</h3>
+<h3>
+<a name="postpone-the-top-task" class="anchor" href="#postpone-the-top-task"><span class="octicon octicon-link"></span></a>Postpone the top task</h3>
 
 <pre><code>todoq postpone [priority]
 </code></pre>
@@ -167,16 +173,18 @@ priority - 10</p>
 <p>If <code>priority</code> is specified, the top task is postponed with the new priority.
 Otherwise, the top task is postponed after the second task.</p>
 
-<h3>Drop the top task</h3>
+<h3>
+<a name="drop-the-top-task" class="anchor" href="#drop-the-top-task"><span class="octicon octicon-link"></span></a>Drop the top task</h3>
 
 <pre><code>todoq drop
 </code></pre>
 
 <p>Mark the top task as "dropped".</p>
 
-<h3>Show the complete task list</h3>
+<h3>
+<a name="show-the-complete-task-list" class="anchor" href="#show-the-complete-task-list"><span class="octicon octicon-link"></span></a>Show the complete task list</h3>
 
-<pre><code>todoq list
+<pre><code>todoq ls
 </code></pre>
 
 <p>List all the tasks in the current queue. The sub-command should be used rarely
@@ -191,7 +199,8 @@ to avoid distraction.</p>
 -n count: specifiy the number of tasks to be displayed
 </code></pre>
 
-<h3>Show all the task queues</h3>
+<h3>
+<a name="show-all-the-task-queues" class="anchor" href="#show-all-the-task-queues"><span class="octicon octicon-link"></span></a>Show all the task queues</h3>
 
 <pre><code>todoq showq
 </code></pre>
@@ -199,35 +208,40 @@ to avoid distraction.</p>
 <p>List all the queues. Single queue is recommended. Multiple queues are provided
 in case you have multiple projects at hand.</p>
 
-<h3>Select a task queue</h3>
+<h3>
+<a name="select-a-task-queue" class="anchor" href="#select-a-task-queue"><span class="octicon octicon-link"></span></a>Select a task queue</h3>
 
 <pre><code>todoq selectq queue_name
 </code></pre>
 
 <p>Select the queue as the current queue.</p>
 
-<h3>Create a new task queue</h3>
+<h3>
+<a name="create-a-new-task-queue" class="anchor" href="#create-a-new-task-queue"><span class="octicon octicon-link"></span></a>Create a new task queue</h3>
 
 <pre><code>todoq createq queue_name
 </code></pre>
 
 <p>Create a new queue.</p>
 
-<h3>Delete a task queue</h3>
+<h3>
+<a name="delete-a-task-queue" class="anchor" href="#delete-a-task-queue"><span class="octicon octicon-link"></span></a>Delete a task queue</h3>
 
 <pre><code>todoq deleteq queue_name
 </code></pre>
 
 <p>Delete an existing queue.</p>
 
-<h3>Show usage</h3>
+<h3>
+<a name="show-usage" class="anchor" href="#show-usage"><span class="octicon octicon-link"></span></a>Show usage</h3>
 
 <pre><code>todoq --help, todoq -h, todoq help
 </code></pre>
 
 <p>Show help. Any "unexpected" command will also lead to help.</p>
 
-<h2>License</h2>
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>Apache license is applied if you want to use the source code.
 <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
